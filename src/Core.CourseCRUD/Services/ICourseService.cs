@@ -6,6 +6,7 @@ namespace Core.CourseCRUD.Services
     {
         Task AddCourseAsync(Course course);
         Task DeleteCourseAsync(int id);
+        Task<List<Course>> GetCourseByDescription(string description);
         Task<IEnumerable<Course>> GetCoursesAsync();
     }
 }

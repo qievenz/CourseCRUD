@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Core.CourseCRUD.DTOs;
 using Core.CourseCRUD.Entities;
 
 namespace API.CourseCRUD.Profiles

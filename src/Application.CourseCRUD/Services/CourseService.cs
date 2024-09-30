@@ -2,8 +2,6 @@
 using Core.CourseCRUD.Repositories;
 using Core.CourseCRUD.Services;
 using FluentValidation;
-using System.Collections;
-using System.Text.RegularExpressions;
 
 namespace Application.CourseCRUD.Services
 {
@@ -21,13 +19,6 @@ namespace Application.CourseCRUD.Services
         public async Task AddCourseAsync(Course course)
         {
             await _validator.ValidateAndThrowAsync(course);
-
-            var existingCourse = await _courseRepository.FindCourseAsync(course.Subject, course.CourseNumber);
-            if (existingCourse != null)
-            {
-                throw new InvalidOperationException("Duplicate course detected");
-            }
-
             await _courseRepository.AddCourseAsync(course);
         }
 
@@ -36,12 +27,14 @@ namespace Application.CourseCRUD.Services
             await _courseRepository.DeleteCourseAsync(id);
         }
 
+        public async Task<List<Course>> GetCourseByDescription(string description)
+        {
+            return await _courseRepository.GetCourseByDescription(description);
+        }
+
         public async Task<IEnumerable<Course>> GetCoursesAsync()
         {
             return await _courseRepository.GetCoursesAsync();
         }
-
-        // Otras operaciones como buscar, eliminar, etc.
     }
-
 }

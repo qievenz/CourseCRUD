@@ -40,10 +40,15 @@ namespace Infrastructure.CourseCRUD.Repositories
             }
         }
 
-        public async Task<Course> FindCourseAsync(string subject, string courseNumber)
+        public async Task<Course?> FindCourseAsync(string subject, string courseNumber)
         {
             return await _context.Courses
-                                 .FirstOrDefaultAsync(c => c.Subject == subject && c.CourseNumber == courseNumber);
+                .FirstOrDefaultAsync(c => c.Subject == subject && c.CourseNumber == courseNumber);
+        }
+
+        public async Task<List<Course>> GetCourseByDescription(string description)
+        {
+            return await _context.Courses.Where(w => w.Description.Contains(description)).ToListAsync();
         }
     }
 

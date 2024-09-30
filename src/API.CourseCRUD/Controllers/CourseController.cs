@@ -1,5 +1,5 @@
-﻿using API.CourseCRUD.Profiles;
-using AutoMapper;
+﻿using AutoMapper;
+using Core.CourseCRUD.DTOs;
 using Core.CourseCRUD.Entities;
 using Core.CourseCRUD.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace API.CourseCRUD.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/[controller]/[action]")]
     public class CourseController : ControllerBase
     {
         private readonly ICourseService _courseService;
@@ -52,7 +52,13 @@ namespace API.CourseCRUD.Controllers
             return NoContent();
         }
 
-        // Otras acciones: buscar curso, etc.
+        [HttpGet]
+        public async Task<IActionResult> GetCourseByDescription(string description)
+        {
+            var course = await _courseService.GetCourseByDescription(description);
+
+            return Ok(course);
+        }
     }
 
 }

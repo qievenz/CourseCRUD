@@ -8,6 +8,7 @@ namespace Core.CourseCRUD.Repositories
         Task<Course> GetCourseByIdAsync(int id);
         Task AddCourseAsync(Course course);
         Task DeleteCourseAsync(int id);
-        Task<Course> FindCourseAsync(string subject, string courseNumber);
+        Task<Course?> FindCourseAsync(string subject, string courseNumber);
+        Task<List<Course>> GetCourseByDescription(string description);
     }
 }

@@ -1,4 +1,4 @@
-﻿namespace API.CourseCRUD.Profiles
+﻿namespace Core.CourseCRUD.DTOs
 {
     public class CourseDTO
     {

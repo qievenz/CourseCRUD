@@ -6,7 +6,6 @@ using Core.CourseCRUD.Services;
 using FluentValidation;
 using Infrastructure.CourseCRUD.Persistence;
 using Infrastructure.CourseCRUD.Repositories;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
