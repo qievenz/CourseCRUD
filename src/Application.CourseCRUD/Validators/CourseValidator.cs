@@ -18,6 +18,7 @@ namespace Application.CourseCRUD.Validators
 
             RuleFor(x => x.CourseNumber)
                 .Must(x => x.Length == 3)
+                .Must(x => int.TryParse(x, out _))
                 .WithMessage("CourseNumber must be a three-digit number");
 
             RuleFor(course => course.Description)
