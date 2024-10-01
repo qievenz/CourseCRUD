@@ -12,7 +12,9 @@ namespace API.CourseCRUD.Extensions
                 var services = scope.ServiceProvider;
                 var context = services.GetRequiredService<ApplicationDbContext>();
 
-                Task.Delay(30000);
+                while (!context.Database.CanConnect())
+                    Thread.Sleep(TimeSpan.FromSeconds(5));
+
                 context.Database.Migrate();
             }
 
