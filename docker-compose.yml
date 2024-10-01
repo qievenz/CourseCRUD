@@ -1,0 +1,49 @@
+version: '3.8'
+
+services:
+  mssql:
+    image: "mcr.microsoft.com/mssql/server:2022-latest"
+    container_name: "mssql_db"
+    environment:
+      - SA_PASSWORD=Course5!23
+      - ACCEPT_EULA=Y
+    ports:
+      - "1433:1433"
+    volumes:
+      - mssql_data:/var/opt/mssql
+    networks:
+      - coursenetwork
+
+  api:
+    build:
+      context: .
+      dockerfile: src/API.CourseCRUD/Dockerfile
+    container_name: api_coursecrud
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Release
+      - ConnectionStrings__DefaultConnection=Server=mssql_db,1433;Database=CourseDB;User=sa;Password=Course5!23;TrustServerCertificate=True;
+    ports:
+      - "5010:80"
+    depends_on:
+      - mssql
+    networks:
+      - coursenetwork
+
+  client:
+    build:
+      context: ./src/client.coursecrud
+      dockerfile: Dockerfile
+    container_name: coursecrud_client
+    ports:
+      - "3000:80"
+    depends_on:
+      - api
+    networks:
+      - coursenetwork
+
+networks:
+  coursenetwork:
+    driver: bridge
+
+volumes:
+  mssql_data:

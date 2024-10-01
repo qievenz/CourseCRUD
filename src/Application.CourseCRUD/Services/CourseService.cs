@@ -16,7 +16,7 @@ namespace Application.CourseCRUD.Services
             _validator = validator;
         }
 
-        public async Task AddCourseAsync(Course course)
+        public async Task ValidateAndAddCourseAsync(Course course)
         {
             await _validator.ValidateAndThrowAsync(course);
             await _courseRepository.AddCourseAsync(course);

@@ -16,8 +16,10 @@ IConfiguration configuration = new ConfigurationBuilder()
               .AddEnvironmentVariables()
               .Build();
 // Add services to the container.
+Console.WriteLine($"Environment: {environment}");
+Console.WriteLine($"Connection String: {configuration.GetConnectionString("DefaultConnection")}");
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+    options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
 builder.Services.AddScoped<ICourseService, CourseService>();
 builder.Services.AddScoped<ICourseRepository, CourseRepository>();
 builder.Services.AddScoped<IValidator<Course>, CourseValidator>();
@@ -33,6 +35,8 @@ using (var scope = app.Services.CreateScope())
 {
     var services = scope.ServiceProvider;
     var context = services.GetRequiredService<ApplicationDbContext>();
+
+    await Task.Delay(10000);
     context.Database.Migrate();
 }
 

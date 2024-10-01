@@ -30,7 +30,7 @@ namespace Tests.CourseCRUD
                 Description = "Test Description"
             };
 
-            await _courseService.AddCourseAsync(course);
+            await _courseService.ValidateAndAddCourseAsync(course);
 
             _courseRepository.Verify(x => x.AddCourseAsync(course), Times.Once);
         }

@@ -34,7 +34,7 @@ namespace API.CourseCRUD.Controllers
             {
                 var course = _mapper.Map<Course>(courseDTO);
 
-                await _courseService.AddCourseAsync(course);
+                await _courseService.ValidateAndAddCourseAsync(course);
 
                 return Ok(course);
             }

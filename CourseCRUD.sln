@@ -11,9 +11,14 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Infrastructure.CourseCRUD",
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Application.CourseCRUD", "src\Application.CourseCRUD\Application.CourseCRUD.csproj", "{03B55538-8CE5-46B4-90BB-C1626CE4A6A0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.CourseCRUD", "src\Core.CourseCRUD\Core.CourseCRUD.csproj", "{5C8A5A7B-2228-4FE6-99B2-D9EA18B7766C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core.CourseCRUD", "src\Core.CourseCRUD\Core.CourseCRUD.csproj", "{5C8A5A7B-2228-4FE6-99B2-D9EA18B7766C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests.CourseCRUD", "src\Tests.CourseCRUD\Tests.CourseCRUD.csproj", "{07591A03-DD51-4A59-937A-04C837C77FD4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tests.CourseCRUD", "src\Tests.CourseCRUD\Tests.CourseCRUD.csproj", "{07591A03-DD51-4A59-937A-04C837C77FD4}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{F3840815-8CB9-4A55-AB7D-A15FE4F197CF}"
+	ProjectSection(SolutionItems) = preProject
+		docker-compose.yml = docker-compose.yml
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
