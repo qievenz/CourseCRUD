@@ -1,11 +1,10 @@
 # Establece la imagen base para .NET 8 SDK
 FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
 WORKDIR /app
+EXPOSE 80
+EXPOSE 443
 
-ARG APP_PORT
-ENV APP_PORT=${APP_PORT}
-EXPOSE ${APP_PORT}
-ENV ASPNETCORE_URLS=http://+:${APP_PORT}
+ENV ASPNETCORE_URLS=http://+:80
 
 # Establece la imagen para construir la aplicación
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
