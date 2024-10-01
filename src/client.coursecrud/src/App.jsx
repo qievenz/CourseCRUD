@@ -12,8 +12,6 @@ function App() {
 
     const fetchCourses = async () => {
         const response = await fetch('/api/Course/GetCourses')
-            .then(response => response.json())
-            .then(data => console.log(data))
             .catch(error => console.error('Error fetching data:', error));
         const data = await response.json();
         setCourses(data);
