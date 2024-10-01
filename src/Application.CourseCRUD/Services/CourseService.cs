@@ -2,6 +2,7 @@
 using Core.CourseCRUD.Repositories;
 using Core.CourseCRUD.Services;
 using FluentValidation;
+using FluentValidation.Results;
 
 namespace Application.CourseCRUD.Services
 {
@@ -16,10 +17,14 @@ namespace Application.CourseCRUD.Services
             _validator = validator;
         }
 
-        public async Task ValidateAndAddCourseAsync(Course course)
+        public async Task<ValidationResult> ValidateAndAddCourseAsync(Course course)
         {
-            await _validator.ValidateAndThrowAsync(course);
-            await _courseRepository.AddCourseAsync(course);
+            var result = await _validator.ValidateAsync(course);
+
+            if (result.IsValid)
+                await _courseRepository.AddCourseAsync(course);
+
+            return result;
         }
 
         public async Task DeleteCourseAsync(int id)

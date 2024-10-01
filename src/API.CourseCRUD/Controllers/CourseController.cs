@@ -33,8 +33,10 @@ namespace API.CourseCRUD.Controllers
             try
             {
                 var course = _mapper.Map<Course>(courseDTO);
+                var result = await _courseService.ValidateAndAddCourseAsync(course);
 
-                await _courseService.ValidateAndAddCourseAsync(course);
+                if (!result.IsValid)
+                    return BadRequest(result.Errors.Select(e => e.ErrorMessage));
 
                 return Ok(course);
             }

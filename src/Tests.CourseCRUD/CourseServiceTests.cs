@@ -30,6 +30,8 @@ namespace Tests.CourseCRUD
                 Description = "Test Description"
             };
 
+            _validator.Setup(x => x.ValidateAsync(course, default)).ReturnsAsync(new FluentValidation.Results.ValidationResult());
+
             await _courseService.ValidateAndAddCourseAsync(course);
 
             _courseRepository.Verify(x => x.AddCourseAsync(course), Times.Once);
