@@ -11,11 +11,21 @@ namespace API.CourseCRUD.Extensions
             {
                 var services = scope.ServiceProvider;
                 var context = services.GetRequiredService<ApplicationDbContext>();
+                var connected = false;
 
-                while (!context.Database.CanConnect())
-                    Thread.Sleep(TimeSpan.FromSeconds(5));
-
-                context.Database.Migrate();
+                while (!connected)
+                {
+                    try
+                    {
+                        context.Database.Migrate();
+                        connected = true;
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine($"Database is not ready yet: {ex.Message}. Retrying in 5 seconds...");
+                        Thread.Sleep(TimeSpan.FromSeconds(5));
+                    }
+                }
             }
 
             app.UseDefaultFiles();
