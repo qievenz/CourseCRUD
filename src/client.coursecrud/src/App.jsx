@@ -13,8 +13,11 @@ function App() {
     const fetchCourses = async () => {
         const response = await fetch('/api/Course/GetCourses')
             .catch(error => console.error('Error fetching data:', error));
-        const data = await response.json();
-        setCourses(data);
+
+        if (response.ok) {
+            const data = await response.json();
+            setCourses(data);
+        }
     };
 
     const addCourse = async () => {
