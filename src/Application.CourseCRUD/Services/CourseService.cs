@@ -3,6 +3,8 @@ using Core.CourseCRUD.Repositories;
 using Core.CourseCRUD.Services;
 using FluentValidation;
 using FluentValidation.Results;
+using Serilog;
+using System.Text.Json;
 
 namespace Application.CourseCRUD.Services
 {
@@ -19,27 +21,60 @@ namespace Application.CourseCRUD.Services
 
         public async Task<ValidationResult> ValidateAndAddCourseAsync(Course course)
         {
-            var result = await _validator.ValidateAsync(course);
+            try
+            {
+                var result = await _validator.ValidateAsync(course);
 
-            if (result.IsValid)
-                await _courseRepository.AddCourseAsync(course);
+                if (result.IsValid)
+                    await _courseRepository.AddCourseAsync(course);
 
-            return result;
+                return result;
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex, $"Error adding course: {JsonSerializer.Serialize(course)}");
+                throw;
+            }
         }
 
         public async Task DeleteCourseAsync(int id)
         {
-            await _courseRepository.DeleteCourseAsync(id);
+            try
+            {
+                await _courseRepository.DeleteCourseAsync(id);
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex, $"Error deleting course id: {id}");
+                throw;
+            }
         }
 
         public async Task<List<Course>> GetCourseByDescription(string description)
         {
-            return await _courseRepository.GetCourseByDescription(description);
+            try
+            {
+                return await _courseRepository.GetCourseByDescription(description);
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex, $"Error searching course description: {description}");
+                throw;
+            }
         }
 
         public async Task<IEnumerable<Course>> GetCoursesAsync()
         {
-            return await _courseRepository.GetCoursesAsync();
+            Log.Information("Getting courses");
+            try
+            {
+                return await _courseRepository.GetCoursesAsync();
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex, $"Error getting courses");
+                throw;
+            }
         }
     }
 }
