@@ -15,7 +15,7 @@ This is a course management application built using React for the frontend and A
 	```
 2. Run the application
 	```bash
-	docker-compose up --build
+	docker-compose up --build -d
 	```
 
 This will:
